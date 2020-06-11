@@ -51,13 +51,13 @@
     </div>
     <br />
     @Html.LabelFor(m => m.Information.StartDeliveryDate)
-    @Html.TextBoxFor(m => m.Information.StartDeliveryDate, new { @class = "form-control" })
+    @Html.TextBoxFor(m => m.Information.StartDeliveryDate, "{0:dd-MM-yyyy}",new { @class = "form-control" })
     <div>
         @Html.ValidationMessageFor(m => m.Information.StartDeliveryDate, "", new { @class = "error" })
     </div>
     <br />
     @Html.LabelFor(m => m.Information.EndDeliveryDate)
-    @Html.TextBoxFor(m => m.Information.EndDeliveryDate, new { @class = "form-control" })
+    @Html.TextBoxFor(m => m.Information.EndDeliveryDate, "{0:dd-MM-yyyy}",new { @class = "form-control" })
     <div>
         @Html.ValidationMessageFor(m => m.Information.EndDeliveryDate, "", new { @class = "error" })
     </div>

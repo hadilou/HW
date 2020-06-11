@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities1">
+  <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities2">
     <EntitySetMapping Name="Information">
       <EntityTypeMapping TypeName="masterModel.Information">
         <MappingFragment StoreEntitySet="Information">
@@ -95,15 +95,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="sp_MScleanupmergepublisher" FunctionName="masterModel.Store.sp_MScleanupmergepublisher" />
-    <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="masterModel.Store.sp_MSrepl_startup" />
-    <FunctionImportMapping FunctionImportName="InsertInformation" FunctionName="masterModel.Store.InsertInformation" />
-    <FunctionImportMapping FunctionImportName="InsertSeller" FunctionName="masterModel.Store.InsertSeller" />
-    <FunctionImportMapping FunctionImportName="ValidateInformation" FunctionName="masterModel.Store.ValidateInformation" />
-    <FunctionImportMapping FunctionImportName="ValidateSeller" FunctionName="masterModel.Store.ValidateSeller" />
     <FunctionImportMapping FunctionImportName="Display" FunctionName="masterModel.Store.Display">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="masterModel.Display_Result2">
+        <ComplexTypeMapping TypeName="masterModel.Display_Result">
           <ScalarProperty Name="SellerName" ColumnName="SellerName" />
           <ScalarProperty Name="Product" ColumnName="Product" />
           <ScalarProperty Name="Country" ColumnName="Country" />
@@ -112,5 +106,11 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertInformation" FunctionName="masterModel.Store.InsertInformation" />
+    <FunctionImportMapping FunctionImportName="InsertSeller" FunctionName="masterModel.Store.InsertSeller" />
+    <FunctionImportMapping FunctionImportName="sp_MScleanupmergepublisher" FunctionName="masterModel.Store.sp_MScleanupmergepublisher" />
+    <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="masterModel.Store.sp_MSrepl_startup" />
+    <FunctionImportMapping FunctionImportName="ValidateInformation" FunctionName="masterModel.Store.ValidateInformation" />
+    <FunctionImportMapping FunctionImportName="ValidateSeller" FunctionName="masterModel.Store.ValidateSeller" />
   </EntityContainerMapping>
 </Mapping>

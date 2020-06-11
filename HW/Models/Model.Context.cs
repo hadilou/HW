@@ -15,10 +15,10 @@ namespace HW.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class masterEntities1 : DbContext
+    public partial class masterEntities2 : DbContext
     {
-        public masterEntities1()
-            : base("name=masterEntities1")
+        public masterEntities2()
+            : base("name=masterEntities2")
         {
         }
     
@@ -35,6 +35,45 @@ namespace HW.Models
         public virtual DbSet<spt_fallback_usg> spt_fallback_usg { get; set; }
         public virtual DbSet<spt_monitor> spt_monitor { get; set; }
     
+        public virtual ObjectResult<Display_Result> Display()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Display_Result>("Display");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> InsertInformation(string product, Nullable<System.DateTime> startDeliveryDate, Nullable<System.DateTime> endDeliveryDate)
+        {
+            var productParameter = product != null ?
+                new ObjectParameter("Product", product) :
+                new ObjectParameter("Product", typeof(string));
+    
+            var startDeliveryDateParameter = startDeliveryDate.HasValue ?
+                new ObjectParameter("StartDeliveryDate", startDeliveryDate) :
+                new ObjectParameter("StartDeliveryDate", typeof(System.DateTime));
+    
+            var endDeliveryDateParameter = endDeliveryDate.HasValue ?
+                new ObjectParameter("EndDeliveryDate", endDeliveryDate) :
+                new ObjectParameter("EndDeliveryDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("InsertInformation", productParameter, startDeliveryDateParameter, endDeliveryDateParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> InsertSeller(string sellerName, string country, string product)
+        {
+            var sellerNameParameter = sellerName != null ?
+                new ObjectParameter("SellerName", sellerName) :
+                new ObjectParameter("SellerName", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var productParameter = product != null ?
+                new ObjectParameter("Product", product) :
+                new ObjectParameter("Product", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("InsertSeller", sellerNameParameter, countryParameter, productParameter);
+        }
+    
         public virtual int sp_MScleanupmergepublisher()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MScleanupmergepublisher");
@@ -45,7 +84,7 @@ namespace HW.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MSrepl_startup");
         }
     
-        public virtual int InsertInformation(string product, Nullable<System.DateTime> startDeliveryDate, Nullable<System.DateTime> endDeliveryDate)
+        public virtual int ValidateInformation(string product, Nullable<System.DateTime> startDeliveryDate, Nullable<System.DateTime> endDeliveryDate)
         {
             var productParameter = product != null ?
                 new ObjectParameter("Product", product) :
@@ -59,10 +98,10 @@ namespace HW.Models
                 new ObjectParameter("EndDeliveryDate", endDeliveryDate) :
                 new ObjectParameter("EndDeliveryDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertInformation", productParameter, startDeliveryDateParameter, endDeliveryDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ValidateInformation", productParameter, startDeliveryDateParameter, endDeliveryDateParameter);
         }
     
-        public virtual int InsertSeller(string sellerName, string country, string product)
+        public virtual int ValidateSeller(string sellerName, string country, string product)
         {
             var sellerNameParameter = sellerName != null ?
                 new ObjectParameter("SellerName", sellerName) :
@@ -76,46 +115,7 @@ namespace HW.Models
                 new ObjectParameter("Product", product) :
                 new ObjectParameter("Product", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertSeller", sellerNameParameter, countryParameter, productParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> ValidateInformation(string product, Nullable<System.DateTime> startDeliveryDate, Nullable<System.DateTime> endDeliveryDate)
-        {
-            var productParameter = product != null ?
-                new ObjectParameter("Product", product) :
-                new ObjectParameter("Product", typeof(string));
-    
-            var startDeliveryDateParameter = startDeliveryDate.HasValue ?
-                new ObjectParameter("StartDeliveryDate", startDeliveryDate) :
-                new ObjectParameter("StartDeliveryDate", typeof(System.DateTime));
-    
-            var endDeliveryDateParameter = endDeliveryDate.HasValue ?
-                new ObjectParameter("EndDeliveryDate", endDeliveryDate) :
-                new ObjectParameter("EndDeliveryDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ValidateInformation", productParameter, startDeliveryDateParameter, endDeliveryDateParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> ValidateSeller(string sellerName, string country, string product)
-        {
-            var sellerNameParameter = sellerName != null ?
-                new ObjectParameter("SellerName", sellerName) :
-                new ObjectParameter("SellerName", typeof(string));
-    
-            var countryParameter = country != null ?
-                new ObjectParameter("Country", country) :
-                new ObjectParameter("Country", typeof(string));
-    
-            var productParameter = product != null ?
-                new ObjectParameter("Product", product) :
-                new ObjectParameter("Product", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ValidateSeller", sellerNameParameter, countryParameter, productParameter);
-        }
-    
-        public virtual ObjectResult<Display_Result> Display()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Display_Result>("Display");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ValidateSeller", sellerNameParameter, countryParameter, productParameter);
         }
     }
 }

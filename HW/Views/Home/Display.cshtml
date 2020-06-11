@@ -1,8 +1,58 @@
-﻿@model  HW.Models.Display_Results
+﻿@using System
+@using System.Collections
+@using System.Collections.Generic
+@using System.Globalization
 
+@functions {
+    public string weekNumber(DateTime? date)
+    {
+        if (date.HasValue)
+        {
+            CultureInfo ciCurr = CultureInfo.CurrentCulture;
+            return ciCurr.Calendar.GetWeekOfYear(date.Value, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday).ToString();
+        }
+        return "N/A";
+    }
+    public string dayOfWeek(DateTime? date)
+    {
+        if (date.HasValue)
+        {
+            return date.Value.DayOfWeek.ToString();
+        }
+        return "N/A";
+    }
+    public string getDayColor(DateTime? startDate,DateTime? endDate)
+    {
+        var diffDays = 0;
+        if (startDate.HasValue && endDate.HasValue)
+        {
+            diffDays = (int) (endDate - startDate).Value.TotalDays;
+        }
+        if (diffDays >= 0 && diffDays <= 100) return "blue";
+
+        else if (diffDays >= 101 && diffDays <= 200) return "yellow";
+        return "red";
+    }
+    public string getWeekColor(DateTime? startDate, DateTime? endDate)
+    {
+        var diffWeek = 0;
+        if (startDate.HasValue && endDate.HasValue)
+        {
+            diffWeek = (int) Math.Round((endDate - startDate).Value.TotalDays/7 + 0.5);
+        }
+        if (diffWeek >= 0 && diffWeek <= 2) return "blue";
+
+        else if (diffWeek >= 2 && diffWeek <= 4) return "yellow";
+        return "red";
+
+    }
+}
+
+@model  IEnumerable<HW.Models.Display_Result>
+    
 @{
     ViewBag.Title = "Display";
-}
+  }
 
 <h2>Index</h2>
 
@@ -12,60 +62,63 @@
 <table class="table table-striped">
     <tr>
         <th>
+            Product
+        </th>
+        <th>
             Seller Name
         </th>
         <th>
             Country
         </th>
         <th>
-            Product
+            Start Delivery Date
         </th>
         <th>
-            ID
+            End Delivery Date
         </th>
         <th>
-            StartDeliveryDate
+            Day Code
         </th>
         <th>
-            EndDeliveryDate
-        </th>
-        <th>
-            Color
+            Week Code
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product)
-            </td>
-            <td>
-                ID
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDeliveryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDeliveryDate)
-            </td>
-            <td>
-                Color
-            </td>
+        var start = @dayOfWeek(item.StartDeliveryDate)+ " Week "+@weekNumber(item.StartDeliveryDate);
+        var end = @dayOfWeek(item.EndDeliveryDate)+ " Week " + @weekNumber(item.EndDeliveryDate);
 
-            <td>
-                @Html.ActionLink("", "", new { id = item.No }) |
-                @Html.ActionLink("", "", new { id = item.No }) |
-                @Html.ActionLink("", "", new { id = item.No })
-            </td>
-        </tr>
+        var dayColor = getDayColor(item.StartDeliveryDate, item.EndDeliveryDate);
+        var weekColor = getWeekColor(item.StartDeliveryDate, item.EndDeliveryDate);
+
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Product)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SellerName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Country)
+    </td>
+
+    <td>
+
+        @Html.DisplayFor(modelItem => start)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => end)
+    </td>
+    <td bgcolor=@dayColor>
+        @Html.DisplayFor(modelItem => dayColor)
+    </td>
+    <td bgcolor=@weekColor>
+        @Html.DisplayFor(modelItem => weekColor)
+    </td>
+</tr>
     }
 
 </table>

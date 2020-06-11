@@ -122,7 +122,7 @@
     <Property Name="total_write" Type="Int32" Nullable="false" />
     <Property Name="total_errors" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityContainer Name="masterEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="masterEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Information" EntityType="Self.Information" />
     <EntitySet Name="Sellers" EntityType="Self.Seller" />
     <EntitySet Name="MSreplication_options" EntityType="Self.MSreplication_options" />
@@ -130,51 +130,31 @@
     <EntitySet Name="spt_fallback_dev" EntityType="Self.spt_fallback_dev" />
     <EntitySet Name="spt_fallback_usg" EntityType="Self.spt_fallback_usg" />
     <EntitySet Name="spt_monitor" EntityType="Self.spt_monitor" />
+    <FunctionImport Name="Display" ReturnType="Collection(masterModel.Display_Result)" />
+    <FunctionImport Name="InsertInformation" ReturnType="Collection(Decimal)">
+      <Parameter Name="Product" Mode="In" Type="String" />
+      <Parameter Name="StartDeliveryDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDeliveryDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="InsertSeller" ReturnType="Collection(Decimal)">
+      <Parameter Name="SellerName" Mode="In" Type="String" />
+      <Parameter Name="Country" Mode="In" Type="String" />
+      <Parameter Name="Product" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="sp_MScleanupmergepublisher" />
     <FunctionImport Name="sp_MSrepl_startup" />
-    <FunctionImport Name="InsertInformation">
+    <FunctionImport Name="ValidateInformation">
       <Parameter Name="Product" Mode="In" Type="String" />
       <Parameter Name="StartDeliveryDate" Mode="In" Type="DateTime" />
       <Parameter Name="EndDeliveryDate" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <FunctionImport Name="InsertSeller">
+    <FunctionImport Name="ValidateSeller">
       <Parameter Name="SellerName" Mode="In" Type="String" />
       <Parameter Name="Country" Mode="In" Type="String" />
       <Parameter Name="Product" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="ValidateInformation" ReturnType="Collection(Int32)">
-      <Parameter Name="Product" Mode="In" Type="String" />
-      <Parameter Name="StartDeliveryDate" Mode="In" Type="DateTime" />
-      <Parameter Name="EndDeliveryDate" Mode="In" Type="DateTime" />
-    </FunctionImport>
-    <FunctionImport Name="ValidateSeller" ReturnType="Collection(Int32)">
-      <Parameter Name="SellerName" Mode="In" Type="String" />
-      <Parameter Name="Country" Mode="In" Type="String" />
-      <Parameter Name="Product" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Display" ReturnType="Collection(masterModel.Display_Result2)" />
   </EntityContainer>
   <ComplexType Name="Display_Result">
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Product" Nullable="true" MaxLength="150" />
-    <Property Type="DateTime" Name="StartDeliveryDate" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="EndDeliveryDate" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="No" Nullable="false" />
-    <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
-    <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
-    <Property Type="String" Name="Product1" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="Display_Result1">
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Product" Nullable="true" MaxLength="150" />
-    <Property Type="DateTime" Name="StartDeliveryDate" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="EndDeliveryDate" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="No" Nullable="false" />
-    <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
-    <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
-    <Property Type="String" Name="Product1" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="Display_Result2">
     <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
     <Property Type="String" Name="Product" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />

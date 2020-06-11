@@ -1,6 +1,7 @@
 ﻿using HW.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,11 +14,11 @@ namespace HW.Controllers
         {
             return View();
         }
-        public ActionResult Display(IEnumerable<Display_Result> dr)
+        public ActionResult Display()
         {
-            masterEntities1 ent = new masterEntities1();
+            masterEntities2 ent = new masterEntities2();
             //viewData = 
-            return View(ent.Display().FirstOrDefault());
+            return View(ent.Display());
         }
 
         public ActionResult About()
@@ -37,7 +38,7 @@ namespace HW.Controllers
         [AllowAnonymous]
         public ActionResult Register(RegisterModel registerModel)
         {
-            masterEntities1 ent = new masterEntities1();
+            masterEntities2 ent = new masterEntities2();
             string message;
 
             //Validation
@@ -49,11 +50,15 @@ namespace HW.Controllers
                     registerModel.Seller.Country!=null )
             {
                 //duplicate check with sp
-                Int32? ID = (Int32?)ent.ValidateInformation(registerModel.Seller.Product, registerModel.Information.StartDeliveryDate, registerModel.Information.EndDeliveryDate).FirstOrDefault();
-                Int32? productNo = (Int32?)ent.ValidateSeller(registerModel.Seller.SellerName, registerModel.Seller.Country, registerModel.Seller.Product).FirstOrDefault();
+                Int32? ID = (Int32?)ent.ValidateInformation(registerModel.Seller.Product,
+                                                        registerModel.Information.StartDeliveryDate,
+                                                        registerModel.Information.EndDeliveryDate);
+                Int32? productNo = (Int32?)ent.ValidateSeller(registerModel.Seller.SellerName, 
+                                                            registerModel.Seller.Country,
+                                                            registerModel.Seller.Product);
 
 
-                if (ID == -1 && productNo == -1)
+                if (ID == 0 && productNo == 0)
                 {
                     message = "Duplicate data, this data exists";
                     ViewBag.message = message;
@@ -64,9 +69,10 @@ namespace HW.Controllers
                     //insert data with sp
                     ent.InsertInformation(registerModel.Seller.Product, registerModel.Information.StartDeliveryDate, registerModel.Information.EndDeliveryDate);
                     ent.InsertSeller(registerModel.Seller.SellerName, registerModel.Seller.Country, registerModel.Seller.Product);
-                    //IEnumerable<Display_Results> dr = (IEnumerable<Display_Results>)ent.Display().FirstOrDefault();
-
-                    return View("Display");
+                    var dt = ent.Display().FirstOrDefault();
+                    IEnumerable<Display_Result> dr = (IEnumerable<Display_Result>)ent.Display();
+                    //Console.WriteLine(dr.ToString());
+                    return View("Display",dr);
                 }
 
             }

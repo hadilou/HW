@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e96cab19f398408e847a24c3d8ef3fdc" Name="Diagram1">
+      <Diagram DiagramId="f4cdc4f4cbd849be81bcdba1b9075b7d" Name="Diagram1">
         <EntityTypeShape EntityType="masterModel.Information" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="masterModel.Seller" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="masterModel.MSreplication_options" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />

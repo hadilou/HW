@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Information">
           <Key>
             <PropertyRef Name="ID" />
@@ -228,7 +228,8 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
     FROM [dbo].[spt_monitor] AS [spt_monitor]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -354,7 +355,7 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <Property Name="total_write" Type="Int32" Nullable="false" />
           <Property Name="total_errors" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="masterEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="masterEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Information" EntityType="Self.Information" />
           <EntitySet Name="Sellers" EntityType="Self.Seller" />
           <EntitySet Name="MSreplication_options" EntityType="Self.MSreplication_options" />
@@ -362,46 +363,43 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <EntitySet Name="spt_fallback_dev" EntityType="Self.spt_fallback_dev" />
           <EntitySet Name="spt_fallback_usg" EntityType="Self.spt_fallback_usg" />
           <EntitySet Name="spt_monitor" EntityType="Self.spt_monitor" />
+          <FunctionImport Name="Display" ReturnType="Collection(masterModel.Display_Result)" />
+          <FunctionImport Name="InsertInformation" ReturnType="Collection(Decimal)">
+            <Parameter Name="Product" Mode="In" Type="String" />
+            <Parameter Name="StartDeliveryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDeliveryDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="InsertSeller" ReturnType="Collection(Decimal)">
+            <Parameter Name="SellerName" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="Product" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_MScleanupmergepublisher" />
           <FunctionImport Name="sp_MSrepl_startup" />
-          <FunctionImport Name="InsertInformation">
+          <FunctionImport Name="ValidateInformation">
             <Parameter Name="Product" Mode="In" Type="String" />
             <Parameter Name="StartDeliveryDate" Mode="In" Type="DateTime" />
             <Parameter Name="EndDeliveryDate" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="InsertSeller">
+          <FunctionImport Name="ValidateSeller">
             <Parameter Name="SellerName" Mode="In" Type="String" />
             <Parameter Name="Country" Mode="In" Type="String" />
             <Parameter Name="Product" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="ValidateInformation" ReturnType="Collection(Int32)">
-            <Parameter Name="Product" Mode="In" Type="String" />
-            <Parameter Name="StartDeliveryDate" Mode="In" Type="DateTime" />
-            <Parameter Name="EndDeliveryDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="ValidateSeller" ReturnType="Collection(Int32)">
-            <Parameter Name="SellerName" Mode="In" Type="String" />
-            <Parameter Name="Country" Mode="In" Type="String" />
-            <Parameter Name="Product" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Display" ReturnType="Collection(masterModel.Display_Result)" />
         </EntityContainer>
         <ComplexType Name="Display_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Product" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Product" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
           <Property Type="DateTime" Name="StartDeliveryDate" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="EndDeliveryDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="No" Nullable="false" />
-          <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Product1" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities1">
+        <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities2">
           <EntitySetMapping Name="Information">
             <EntityTypeMapping TypeName="masterModel.Information">
               <MappingFragment StoreEntitySet="Information">
@@ -496,26 +494,23 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_MScleanupmergepublisher" FunctionName="masterModel.Store.sp_MScleanupmergepublisher" />
-          <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="masterModel.Store.sp_MSrepl_startup" />
-          <FunctionImportMapping FunctionImportName="InsertInformation" FunctionName="masterModel.Store.InsertInformation" />
-          <FunctionImportMapping FunctionImportName="InsertSeller" FunctionName="masterModel.Store.InsertSeller" />
-          <FunctionImportMapping FunctionImportName="ValidateInformation" FunctionName="masterModel.Store.ValidateInformation" />
-          <FunctionImportMapping FunctionImportName="ValidateSeller" FunctionName="masterModel.Store.ValidateSeller" />
           <FunctionImportMapping FunctionImportName="Display" FunctionName="masterModel.Store.Display">
             <ResultMapping>
               <ComplexTypeMapping TypeName="masterModel.Display_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
                 <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="StartDeliveryDate" ColumnName="StartDeliveryDate" />
                 <ScalarProperty Name="EndDeliveryDate" ColumnName="EndDeliveryDate" />
-                <ScalarProperty Name="No" ColumnName="No" />
-                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Product1" ColumnName="Product1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertInformation" FunctionName="masterModel.Store.InsertInformation" />
+          <FunctionImportMapping FunctionImportName="InsertSeller" FunctionName="masterModel.Store.InsertSeller" />
+          <FunctionImportMapping FunctionImportName="sp_MScleanupmergepublisher" FunctionName="masterModel.Store.sp_MScleanupmergepublisher" />
+          <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="masterModel.Store.sp_MSrepl_startup" />
+          <FunctionImportMapping FunctionImportName="ValidateInformation" FunctionName="masterModel.Store.ValidateInformation" />
+          <FunctionImportMapping FunctionImportName="ValidateSeller" FunctionName="masterModel.Store.ValidateSeller" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

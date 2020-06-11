@@ -12,17 +12,19 @@ namespace HW.Models
     using System;
     using System.Collections;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
     public partial class Display_Result
     {
-        public int ID { get; set; }
-        public string Product { get; set; }
-        public Nullable<System.DateTime> StartDeliveryDate { get; set; }
-        public Nullable<System.DateTime> EndDeliveryDate { get; set; }
-        public int No { get; set; }
+        [Display(Name = " Seller Name ")]
         public string SellerName { get; set; }
+        public string Product { get; set; }
         public string Country { get; set; }
-        public string Product1 { get; set; }
+        [Display(Name = " Start Delivery Date ")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        public Nullable<System.DateTime> StartDeliveryDate { get; set; }
+        [Display(Name = " End Delivery Date ")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        public Nullable<System.DateTime> EndDeliveryDate { get; set; }
     }
     public partial class Display_Results
     {
