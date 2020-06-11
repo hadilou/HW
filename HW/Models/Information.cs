@@ -18,13 +18,12 @@ namespace HW.Models
         public int ID { get; set; }
         public string Product { get; set; }
         [Display(Name = " Start Delivery Date ")]
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> StartDeliveryDate { get; set; }
         [Display(Name = " End Delivery Date ")]
-
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> EndDeliveryDate { get; set; }
     }
 }
