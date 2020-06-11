@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Information">
           <Key>
             <PropertyRef Name="ID" />
@@ -148,6 +148,9 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <Parameter Name="Country" Type="varchar" Mode="In" />
           <Parameter Name="Product" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_MScleanupmergepublisher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_MSrepl_startup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ValidateInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -228,8 +231,7 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
     FROM [dbo].[spt_monitor] AS [spt_monitor]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -386,8 +388,18 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
             <Parameter Name="Country" Mode="In" Type="String" />
             <Parameter Name="Product" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Search" ReturnType="Collection(masterModel.Display_Result)">
+          <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Display_Result">
+          <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Product" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="StartDeliveryDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDeliveryDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="Search_Result">
           <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="Product" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
@@ -511,6 +523,17 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="masterModel.Store.sp_MSrepl_startup" />
           <FunctionImportMapping FunctionImportName="ValidateInformation" FunctionName="masterModel.Store.ValidateInformation" />
           <FunctionImportMapping FunctionImportName="ValidateSeller" FunctionName="masterModel.Store.ValidateSeller" />
+          <FunctionImportMapping FunctionImportName="Search" FunctionName="masterModel.Store.Search">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="masterModel.Display_Result">
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="StartDeliveryDate" ColumnName="StartDeliveryDate" />
+                <ScalarProperty Name="EndDeliveryDate" ColumnName="EndDeliveryDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

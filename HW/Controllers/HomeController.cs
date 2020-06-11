@@ -10,13 +10,18 @@ namespace HW.Controllers
 {
     public class HomeController : Controller
     {
+        masterEntities2 ent = new masterEntities2();
         public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult Search()
         {
             return View();
         }
         public ActionResult Display()
         {
-            masterEntities2 ent = new masterEntities2();
+            
             //viewData = 
             return View(ent.Display());
         }
@@ -36,9 +41,16 @@ namespace HW.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
+        public ActionResult Search(SearchModel searchModel)
+        {
+            //viewData = 
+            return View("Display",ent.Search(searchModel.StartSearchDate));
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
         public ActionResult Register(RegisterModel registerModel)
         {
-            masterEntities2 ent = new masterEntities2();
             string message;
 
             //Validation

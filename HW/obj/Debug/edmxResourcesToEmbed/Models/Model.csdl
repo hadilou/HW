@@ -153,8 +153,18 @@
       <Parameter Name="Country" Mode="In" Type="String" />
       <Parameter Name="Product" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Search" ReturnType="Collection(masterModel.Display_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Display_Result">
+    <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Product" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />
+    <Property Type="DateTime" Name="StartDeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDeliveryDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Search_Result">
     <Property Type="String" Name="SellerName" Nullable="true" MaxLength="150" />
     <Property Type="String" Name="Product" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="Country" Nullable="true" MaxLength="150" />

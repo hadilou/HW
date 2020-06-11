@@ -11,13 +11,10 @@ namespace HW.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Seller
     {
         public int No { get; set; }
-        [Display(Name = " Seller Name ")]
-
         public string SellerName { get; set; }
         public string Country { get; set; }
         public string Product { get; set; }

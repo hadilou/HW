@@ -21,12 +21,12 @@
         }
         return "N/A";
     }
-    public string getDayColor(DateTime? startDate,DateTime? endDate)
+    public string getDayColor(DateTime? startDate, DateTime? endDate)
     {
         var diffDays = 0;
         if (startDate.HasValue && endDate.HasValue)
         {
-            diffDays = (int) (endDate - startDate).Value.TotalDays;
+            diffDays = (int)(endDate - startDate).Value.TotalDays;
         }
         if (diffDays >= 0 && diffDays <= 100) return "blue";
 
@@ -38,7 +38,7 @@
         var diffWeek = 0;
         if (startDate.HasValue && endDate.HasValue)
         {
-            diffWeek = (int) Math.Round((endDate - startDate).Value.TotalDays/7 + 0.5);
+            diffWeek = (int)Math.Round((endDate - startDate).Value.TotalDays / 7 + 0.5);
         }
         if (diffWeek >= 0 && diffWeek <= 2) return "blue";
 
@@ -49,10 +49,10 @@
 }
 
 @model  IEnumerable<HW.Models.Display_Result>
-    
+
 @{
     ViewBag.Title = "Display";
-  }
+}
 
 <h2>Index</h2>
 
@@ -82,43 +82,42 @@
         <th>
             Week Code
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        var start = @dayOfWeek(item.StartDeliveryDate)+ " Week "+@weekNumber(item.StartDeliveryDate);
-        var end = @dayOfWeek(item.EndDeliveryDate)+ " Week " + @weekNumber(item.EndDeliveryDate);
+        var start = @dayOfWeek(item.StartDeliveryDate) + " Week " + @weekNumber(item.StartDeliveryDate);
+        var end = @dayOfWeek(item.EndDeliveryDate) + " Week " + @weekNumber(item.EndDeliveryDate);
 
         var dayColor = getDayColor(item.StartDeliveryDate, item.EndDeliveryDate);
         var weekColor = getWeekColor(item.StartDeliveryDate, item.EndDeliveryDate);
 
 
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Product)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.SellerName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Country)
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
 
-    <td>
+            <td>
 
-        @Html.DisplayFor(modelItem => start)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => end)
-    </td>
-    <td bgcolor=@dayColor>
-        @Html.DisplayFor(modelItem => dayColor)
-    </td>
-    <td bgcolor=@weekColor>
-        @Html.DisplayFor(modelItem => weekColor)
-    </td>
-</tr>
+                @Html.DisplayFor(modelItem => start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => end)
+            </td>
+            <td bgcolor=@dayColor>
+                @Html.DisplayFor(modelItem => dayColor)
+            </td>
+            <td bgcolor=@weekColor>
+                @Html.DisplayFor(modelItem => weekColor)
+            </td>
+        </tr>
     }
 
 </table>

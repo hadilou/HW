@@ -11,7 +11,7 @@ namespace HW.Models
 {
     using System;
     
-    public partial class Display_Result
+    public partial class Search_Result
     {
         public string SellerName { get; set; }
         public string Product { get; set; }

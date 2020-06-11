@@ -24,54 +24,54 @@
 
     @using (Html.BeginForm("Register", "Home", FormMethod.Post))
     {
-<div class="form-horizontal">
-    <h2 class="form-signin-heading">
-        Register
-    </h2>
-    @Html.LabelFor(m => m.Seller.SellerName)
-    @Html.TextBoxFor(m => m.Seller.SellerName, new { @class = "form-control" })
-    <div>
-        @Html.ValidationMessageFor(m => m.Seller.SellerName, "", new { @class = "error" })
-    </div>
-    <br />
-    @Html.LabelFor(m => m.Seller.Product)
-    @Html.TextBoxFor(m => m.Seller.Product, new { @class = "form-control" })
-    <div>
-        @Html.ValidationMessageFor(m => m.Seller.Product, "", new { @class = "error" })
-    </div>
-    @Html.LabelFor(m => m.Information.Product)
-    @Html.TextBoxFor(m => m.Information.Product, new { @class = "form-control" })
-    <div>
-        @Html.ValidationMessageFor(m => m.Seller.Product, "", new { @class = "error" })
-    </div>
-    @Html.LabelFor(m => m.Seller.Country)
-    @Html.TextBoxFor(m => m.Seller.Country, new { @class = "form-control" })
-    <div>
-        @Html.ValidationMessageFor(m => m.Seller.Country, "", new { @class = "error" })
-    </div>
-    <br />
-    @Html.LabelFor(m => m.Information.StartDeliveryDate)
-    @Html.TextBoxFor(m => m.Information.StartDeliveryDate, "{0:dd-MM-yyyy}",new { @class = "form-control" })
-    <div>
-        @Html.ValidationMessageFor(m => m.Information.StartDeliveryDate, "", new { @class = "error" })
-    </div>
-    <br />
-    @Html.LabelFor(m => m.Information.EndDeliveryDate)
-    @Html.TextBoxFor(m => m.Information.EndDeliveryDate, "{0:dd-MM-yyyy}",new { @class = "form-control" })
-    <div>
-        @Html.ValidationMessageFor(m => m.Information.EndDeliveryDate, "", new { @class = "error" })
-    </div>
-    <br />
+        <div class="form-horizontal">
+            <h2 class="form-signin-heading">
+                Register
+            </h2>
+            @Html.LabelFor(m => m.Seller.SellerName)
+            @Html.TextBoxFor(m => m.Seller.SellerName, new { @class = "form-control" })
+            <div>
+                @Html.ValidationMessageFor(m => m.Seller.SellerName, "", new { @class = "error" })
+            </div>
+            <br />
+            @Html.LabelFor(m => m.Seller.Product)
+            @Html.TextBoxFor(m => m.Seller.Product, new { @class = "form-control" })
+            <div>
+                @Html.ValidationMessageFor(m => m.Seller.Product, "", new { @class = "error" })
+            </div>
+            @Html.LabelFor(m => m.Information.Product)
+            @Html.TextBoxFor(m => m.Information.Product, new { @class = "form-control" })
+            <div>
+                @Html.ValidationMessageFor(m => m.Seller.Product, "", new { @class = "error" })
+            </div>
+            @Html.LabelFor(m => m.Seller.Country)
+            @Html.TextBoxFor(m => m.Seller.Country, new { @class = "form-control" })
+            <div>
+                @Html.ValidationMessageFor(m => m.Seller.Country, "", new { @class = "error" })
+            </div>
+            <br />
+            @Html.LabelFor(m => m.Information.StartDeliveryDate)
+            @Html.EditorFor(m => m.Information.StartDeliveryDate, "{0:dd-MM-yyyy}", new { @class = "form-control" })
+            <div>
+                @Html.ValidationMessageFor(m => m.Information.StartDeliveryDate, "", new { @class = "error" })
+            </div>
+            <br />
+            @Html.LabelFor(m => m.Information.EndDeliveryDate)
+            @Html.EditorFor(m => m.Information.EndDeliveryDate, "{0:dd-MM-yyyy}", new { @class = "form-control" })
+            <div>
+                @Html.ValidationMessageFor(m => m.Information.EndDeliveryDate, "", new { @class = "error" })
+            </div>
+            <br />
 
-    <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
-    <input type="submit" value="Submit" class="btn btn-primary" />
-    <br />
-    <br />
-    <div id="dvMessage" style="display:none" class="alert alert-danger">
-        <strong>Error!</strong>
-        <span>@ViewBag.Message</span>
-    </div>
-</div>
+            <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
+            <input type="submit" value="Submit" class="btn btn-primary" />
+            <br />
+            <br />
+            <div id="dvMessage" style="display:none" class="alert alert-danger">
+                <strong>Error!</strong>
+                <span>@ViewBag.Message</span>
+            </div>
+        </div>
     }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,50 @@
+﻿@model HW.Models.SearchModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+        body {
+            margin: 20pt !important;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+          media="screen" />
+
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        <div class="form-horizontal">
+            <h2 class="form-signin-heading">
+                Search Products Within 6 Months
+            </h2>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            @Html.LabelFor(m => m.StartSearchDate)
+            @Html.EditorFor(m => m.StartSearchDate, new { @class = "form-control" })
+            <br />
+
+            <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</body>
+</html>

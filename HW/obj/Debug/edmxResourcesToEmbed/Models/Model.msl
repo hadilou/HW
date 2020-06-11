@@ -112,5 +112,16 @@
     <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="masterModel.Store.sp_MSrepl_startup" />
     <FunctionImportMapping FunctionImportName="ValidateInformation" FunctionName="masterModel.Store.ValidateInformation" />
     <FunctionImportMapping FunctionImportName="ValidateSeller" FunctionName="masterModel.Store.ValidateSeller" />
+    <FunctionImportMapping FunctionImportName="Search" FunctionName="masterModel.Store.Search">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="masterModel.Display_Result">
+          <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="StartDeliveryDate" ColumnName="StartDeliveryDate" />
+          <ScalarProperty Name="EndDeliveryDate" ColumnName="EndDeliveryDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

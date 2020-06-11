@@ -117,5 +117,14 @@ namespace HW.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ValidateSeller", sellerNameParameter, countryParameter, productParameter);
         }
+    
+        public virtual ObjectResult<Display_Result> Search(Nullable<System.DateTime> startDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Display_Result>("Search", startDateParameter);
+        }
     }
 }
