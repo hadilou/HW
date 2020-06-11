@@ -11,12 +11,20 @@ namespace HW.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Information
     {
         public int ID { get; set; }
         public string Product { get; set; }
+        [Display(Name = " Start Delivery Date ")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+
         public Nullable<System.DateTime> StartDeliveryDate { get; set; }
+        [Display(Name = " End Delivery Date ")]
+
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+
         public Nullable<System.DateTime> EndDeliveryDate { get; set; }
     }
 }
