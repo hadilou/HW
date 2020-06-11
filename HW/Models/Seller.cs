@@ -16,7 +16,7 @@ namespace HW.Models
     public partial class Seller
     {
         public int No { get; set; }
-        [Display(Name = " Seller ")]
+        [Display(Name = " Seller Name ")]
         public string SellerName { get; set; }
         [Display(Name = "Country")]
 
