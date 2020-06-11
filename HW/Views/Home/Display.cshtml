@@ -1,0 +1,73 @@
+﻿@model  HW.Models.Display_Results
+
+@{
+    ViewBag.Title = "Display";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Register New", "Register")
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            Seller Name
+        </th>
+        <th>
+            Country
+        </th>
+        <th>
+            Product
+        </th>
+        <th>
+            ID
+        </th>
+        <th>
+            StartDeliveryDate
+        </th>
+        <th>
+            EndDeliveryDate
+        </th>
+        <th>
+            Color
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+            <td>
+                ID
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDeliveryDate)
+            </td>
+            <td>
+                Color
+            </td>
+
+            <td>
+                @Html.ActionLink("", "", new { id = item.No }) |
+                @Html.ActionLink("", "", new { id = item.No }) |
+                @Html.ActionLink("", "", new { id = item.No })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

@@ -1,0 +1,87 @@
+﻿@model  HW.Models.RegisterModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <style type="text/css">
+        body {
+            margin: 20pt !important;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+          media="screen" />
+
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+<div class="form-horizontal">
+    <h2 class="form-signin-heading">
+        Register
+    </h2>
+    @Html.LabelFor(m => m.Seller.SellerName)
+    @Html.TextBoxFor(m => m.Seller.SellerName, new { @class = "form-control" })
+    <div>
+        @Html.ValidationMessageFor(m => m.Seller.SellerName, "", new { @class = "error" })
+    </div>
+    <br />
+    @Html.LabelFor(m => m.Seller.Product)
+    @Html.TextBoxFor(m => m.Seller.Product, new { @class = "form-control" })
+    <div>
+        @Html.ValidationMessageFor(m => m.Seller.Product, "", new { @class = "error" })
+    </div>
+    @Html.LabelFor(m => m.Information.Product)
+    @Html.TextBoxFor(m => m.Information.Product, new { @class = "form-control" })
+    <div>
+        @Html.ValidationMessageFor(m => m.Seller.Product, "", new { @class = "error" })
+    </div>
+    @Html.LabelFor(m => m.Seller.Country)
+    @Html.TextBoxFor(m => m.Seller.Country, new { @class = "form-control" })
+    <div>
+        @Html.ValidationMessageFor(m => m.Seller.Country, "", new { @class = "error" })
+    </div>
+    <br />
+    @Html.LabelFor(m => m.Information.StartDeliveryDate)
+    @Html.TextBoxFor(m => m.Information.StartDeliveryDate, new { @class = "form-control" })
+    <div>
+        @Html.ValidationMessageFor(m => m.Information.StartDeliveryDate, "", new { @class = "error" })
+    </div>
+    <br />
+    @Html.LabelFor(m => m.Information.EndDeliveryDate)
+    @Html.TextBoxFor(m => m.Information.EndDeliveryDate, new { @class = "form-control" })
+    <div>
+        @Html.ValidationMessageFor(m => m.Information.EndDeliveryDate, "", new { @class = "error" })
+    </div>
+    <br />
+
+    <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
+    <input type="submit" value="Submit" class="btn btn-primary" />
+    <br />
+    <br />
+    <div id="dvMessage" style="display:none" class="alert alert-danger">
+        <strong>Error!</strong>
+        <span>@ViewBag.Message</span>
+    </div>
+</div>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (@ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            $(function () {
+                $("#dvMessage").show();
+            });
+        </script>
+    }
+</body>
+</html>
