@@ -59,67 +59,71 @@
 <p>
     @Html.ActionLink("Register New", "Register")
 </p>
-<table class="table table-striped">
-    <tr>
-        <th>
-            Product
-        </th>
-        <th>
-            Seller Name
-        </th>
-        <th>
-            Country
-        </th>
-        <th>
-            Start Delivery Date
-        </th>
-        <th>
-            End Delivery Date
-        </th>
-        <th>
-            Day Code
-        </th>
-        <th>
-            Week Code
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        var start = @dayOfWeek(item.StartDeliveryDate) + " Week " + @weekNumber(item.StartDeliveryDate);
-        var end = @dayOfWeek(item.EndDeliveryDate) + " Week " + @weekNumber(item.EndDeliveryDate);
-
-        var dayColor = getDayColor(item.StartDeliveryDate, item.EndDeliveryDate);
-        var weekColor = getWeekColor(item.StartDeliveryDate, item.EndDeliveryDate);
-
+<table class="table table-striped table-bordered table-hover table-responsive">
+    <caption>List of Products</caption>
+    <thead class="thead-light">
 
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-
-            <td>
-
-                @Html.DisplayFor(modelItem => start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => end)
-            </td>
-            <td bgcolor=@dayColor>
-                @Html.DisplayFor(modelItem => dayColor)
-            </td>
-            <td bgcolor=@weekColor>
-                @Html.DisplayFor(modelItem => weekColor)
-            </td>
+            <th>
+                Product
+            </th>
+            <th>
+                Seller Name
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Start Delivery Date
+            </th>
+            <th>
+                End Delivery Date
+            </th>
+            <th>
+                Day Code
+            </th>
+            <th>
+                Week Code
+            </th>
         </tr>
-    }
+    <thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var start = @dayOfWeek(item.StartDeliveryDate) + " Week " + @weekNumber(item.StartDeliveryDate);
+            var end = @dayOfWeek(item.EndDeliveryDate) + " Week " + @weekNumber(item.EndDeliveryDate);
 
+            var dayColor = getDayColor(item.StartDeliveryDate, item.EndDeliveryDate);
+            var weekColor = getWeekColor(item.StartDeliveryDate, item.EndDeliveryDate);
+
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => end)
+                </td>
+                <td bgcolor=@dayColor>
+                    @Html.DisplayFor(modelItem => dayColor)
+                </td>
+                <td bgcolor=@weekColor>
+                    @Html.DisplayFor(modelItem => weekColor)
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 
