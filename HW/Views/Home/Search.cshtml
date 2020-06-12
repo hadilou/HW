@@ -24,20 +24,25 @@
     @using (Html.BeginForm("Search", "Home", FormMethod.Post))
     {
         <div class="form-horizontal">
-            <h2 class="form-signin-heading">
-                Search Products Within 6 Months
+            <h2 class="form-signin-heading col-md-3 col-md-offset-3">
+                Search
             </h2>
             <br />
             <br />
             <br />
             <br />
             <br />
-            @Html.LabelFor(m => m.StartSearchDate)
-            @Html.EditorFor(m => m.StartSearchDate, new { @class = "form-control" })
-            <br />
-
+        <div class="form-group">
+            <div class="row">
+                    @Html.LabelFor(m => m.StartSearchDate, new { @class = "control-label col-md-2 col-md-offset-2" })
+                    @Html.EditorFor(m => m.StartSearchDate, new { @class = "form-control col-md-2 col-md-offset-2" })
+            </div>
+        </div>
+            <br/>
+        <div class="form-group">
             <input type="hidden" name="ReturnUrl" value="@Request.QueryString["ReturnUrl"]" />
-            <input type="submit" value="Search" class="btn btn-primary" />
+            <input type="submit" value="Submit" class="col-md-3 col-md-offset-3 btn btn-primary" />
+        </div>
             <br />
             <br />
             <br />
